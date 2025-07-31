@@ -36,4 +36,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Nuevo código para el efecto de typing ---
+    const typingTextElement = document.querySelector('.hero-content h1');
+    const textToType = typingTextElement.textContent; // Guarda el texto original
+    typingTextElement.textContent = ''; // Limpia el texto para empezar a escribir
+
+    let charIndex = 0;
+    const typingSpeed = 100; // Velocidad en milisegundos por carácter
+
+    function typeWriter() {
+        if (charIndex < textToType.length) {
+            typingTextElement.textContent += textToType.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, typingSpeed);
+        }
+    }
+
+    // Iniciar el efecto de máquina de escribir cuando la página carga
+    typeWriter();
+    // --- Fin del nuevo código ---
 });
