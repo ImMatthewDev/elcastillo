@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Castillo del Café</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">El Castillo del Café</div>
+            <ul>
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#menu">Menú</a></li>
+                <li><a href="#reservations">Reservas</a></li>
+                <li><a href="#gallery">Galería</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1>Bienvenido a El Castillo del Café</h1>
+                <p>Donde la magia de un castillo se encuentra con el sabor del café y la mejor gastronomía.</p>
+                <a href="#reservations" class="btn">Haz tu Reserva</a>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2>Nuestra Historia</h2>
+                <p>Ubicado en un majestuoso castillo, El Castillo del Café te invita a vivir una experiencia culinaria y visual inolvidable. Cada rincón cuenta una historia, y cada plato es una obra de arte.</p>
+                <p>Disfruta de nuestros exquisitos platos, desde desayunos hasta cenas, en un ambiente único que te transportará a otra época.</p>
+            </div>
+        </section>
+
+        <section id="menu" class="menu-section">
+            <div class="container">
+                <h2>Nuestro Menú</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <h3>Desayunos Reales</h3>
+                        <p>Variedad de opciones para empezar el día con energía.</p>
+                        <ul>
+                            <li>Desayuno del Caballero</li>
+                            <li>Tostadas de la Princesa</li>
+                            <li>Huevos del Rey</li>
+                        </ul>
+                    </div>
+                    <div class="menu-item">
+                        <h3>Platos Fuertes del Reino</h3>
+                        <p>Deliciosas opciones para el almuerzo o la cena.</p>
+                        <ul>
+                            <li>Filete del Dragón (Carne a la parrilla)</li>
+                            <li>Salmón del Río Mágico (Salmón a la plancha)</li>
+                            <li>Pollo Encantado (Pollo al horno con especias)</li>
+                        </ul>
+                    </div>
+                    <div class="menu-item">
+                        <h3>Postres de Ensueño</h3>
+                        <p>Dulces creaciones para endulzar tu paladar.</p>
+                        <ul>
+                            <li>Torta de la Reina</li>
+                            <li>Crema de Vainilla de la Bruja Buena</li>
+                            <li>Helado del Hada Madrina</li>
+                        </ul>
+                    </div>
+                    <div class="menu-item">
+                        <h3>Bebidas Mágicas</h3>
+                        <p>Desde el café más aromático hasta refrescantes bebidas.</p>
+                        <ul>
+                            <li>Café del Hechicero (Espresso, Latte, Capuccino)</li>
+                            <li>Jugo del Bosque Encantado</li>
+                            <li>Coctel del Bufón</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reservations" class="reservations-section">
+            <div class="container">
+                <h2>Haz tu Reserva</h2>
+                <p>Reserva tu mesa con anticipación y asegura tu lugar en El Castillo del Café.</p>
+                <form id="reservation-form">
+                    <div class="form-group">
+                        <label for="name">Nombre completo:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo electrónico:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono:</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Fecha:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Hora:</label>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Número de personas:</label>
+                        <input type="number" id="guests" name="guests" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje adicional (opcional):</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Confirmar Reserva</button>
+                    <p id="reservation-message" style="color: green; margin-top: 10px;"></p>
+                </form>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery-section">
+            <div class="container">
+                <h2>Nuestra Galería</h2>
+                <div class="gallery-grid">
+                    <img src="images/image_bd1f26.jpg" alt="Persona en moto frente al castillo">
+                    <img src="images/image_bd1bfe.jpg" alt="Bebidas con vista al atardecer">
+                    <img src="images/image_bd1f89.jpg" alt="Familia frente al castillo">
+                    <img src="images/image_bd1ecd.jpg" alt="Torre del castillo con cielo azul">
+                    <img src="images/image_bd1f49.jpg" alt="Mujer vestida de princesa en la escalera del castillo">
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Contáctanos</h2>
+                <p>¿Tienes alguna pregunta o necesitas más información? No dudes en contactarnos.</p>
+                <p><strong>Teléfono:</strong> +57 123 456 7890</p>
+                <p><strong>Correo electrónico:</strong> info@elcastillodelcafe.com</p>
+                <p><strong>Dirección:</strong> Vía El Castillo, La Virginia, Risaralda, Colombia</p>
+                <div class="social-media">
+                    <a href="#" target="_blank">Facebook</a>
+                    <a href="#" target="_blank">Instagram</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 El Castillo del Café. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
