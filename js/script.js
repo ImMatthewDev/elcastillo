@@ -148,15 +148,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-// Keyframes para la animación del menú hamburguesa (debe estar fuera de DOMContentLoaded)
-@keyframes navLinkFade {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
