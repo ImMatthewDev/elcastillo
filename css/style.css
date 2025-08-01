@@ -168,13 +168,18 @@ nav .logo {
 .burger {
     display: none; /* Oculto por defecto en desktop */
     cursor: pointer;
+    display: flex; /* Añadido para que las líneas se centren */
+    flex-direction: column;
+    justify-content: space-around;
+    height: 20px; /* Altura para las 3 líneas */
+    width: 25px;
 }
 
 .burger div {
     width: 25px;
     height: 3px;
     background-color: var(--light-text-color);
-    margin: 5px;
+    margin: 5px 0; /* Ajustado para que las líneas estén centradas */
     transition: all 0.3s ease;
 }
 
@@ -216,7 +221,11 @@ nav .logo {
     white-space: nowrap; /* Evita que el texto se rompa durante el typing */
     overflow: hidden; /* Esencial para el efecto de escritura */
     border-right: .15em solid white; /* Cursor parpadeante */
-    animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+    
+    /* MODIFICADO: Usar variables CSS para la animación de typing */
+    /* Estas variables serán establecidas por JavaScript */
+    animation: typing var(--typing-duration, 3s) steps(var(--typing-steps, 40), end) forwards, 
+               blink-caret .75s step-end infinite;
     animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
 }
 
@@ -609,6 +618,7 @@ footer {
         transition: transform 0.5s ease-in;
         padding-top: 80px;
         box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        z-index: 999; /* Asegurarse de que esté por encima de otros elementos */
     }
 
     .nav-links.nav-active {
@@ -622,10 +632,12 @@ footer {
 
     .nav-links li a {
         font-size: 1.4rem;
+        color: var(--light-text-color); /* Asegurarse de que el color sea visible */
     }
 
     .burger {
-        display: block; /* Muestra el icono de hamburguesa */
+        display: flex; /* Muestra el icono de hamburguesa solo en móvil */
+        z-index: 1001; /* Asegurarse de que el botón esté encima del menú abierto */
     }
 
     /* Animación del menú hamburguesa */
@@ -637,41 +649,6 @@ footer {
     }
     .toggle .line3 {
         transform: rotate(45deg) translate(-5px, -6px);
-    }
-
-    .hero-content h1 {
-        font-size: 2.8rem;
-    }
-
-    .hero-content p {
-        font-size: 1.1rem;
-    }
-
-    h2 {
-        font-size: 2rem;
-    }
-
-    .about-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .about-text {
-        max-width: 100%;
-    }
-
-    .about-image {
-        flex: 0 0 auto;
-        width: 100%;
-        height: 250px;
-    }
-
-    .reservations-section form {
-        grid-template-columns: 1fr; /* Una columna en móviles */
-    }
-
-    .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
 }
 
@@ -699,5 +676,16 @@ footer {
     }
     .menu-item-card .price {
         font-size: 1.1rem;
+    }
+}
+/* Keyframes para la animación del menú hamburguesa (ESTO ESTÁ CORRECTO AQUÍ) */
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
