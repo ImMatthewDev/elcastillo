@@ -5,20 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const textToType = typingTextElement.textContent;
         typingTextElement.textContent = ''; // Limpia el texto para empezar a escribir
 
-        let charIndex = 0;
-        // La velocidad de typing se controla ahora principalmente por la animación CSS
-        // Aquí solo necesitamos iniciar el proceso para que la animación CSS se active.
-        // Si quieres controlar la velocidad del typing por JS, ajusta este setTimeout
-        // y elimina las propiedades de animación 'typing' y 'blink-caret' del CSS.
+        // Calcular la duración de la animación dinámicamente
+        // Cada carácter toma aproximadamente 0.15 segundos
+        const typingSpeed = 0.15; // Segundos por carácter
+        const animationDuration = textToType.length * typingSpeed;
 
-        function typeWriter() {
-            // Este enfoque es más simple ya que CSS maneja la animación de typing.
-            // Solo aseguramos que el texto completo esté presente para la animación.
-            typingTextElement.textContent = textToType;
-        }
+        // Establecer la variable CSS --typing-steps y --typing-duration
+        // para que las animaciones CSS puedan usar estos valores
+        typingTextElement.style.setProperty('--typing-steps', textToType.length);
+        typingTextElement.style.setProperty('--typing-duration', `${animationDuration}s`);
 
-        // Un pequeño retraso para que la animación se vea bien al cargar
-        setTimeout(typeWriter, 500);
+        // Necesitamos un pequeño retraso para asegurar que las variables CSS se apliquen
+        // antes de que la animación comience.
+        setTimeout(() => {
+            typingTextElement.textContent = textToType; // Pone el texto completo
+            typingTextElement.style.animation = `typing var(--typing-duration) steps(var(--typing-steps), end) forwards, blink-caret .75s step-end infinite`;
+        }, 100); // Pequeño retraso
     }
 
     // --- Smooth Scrolling para los enlaces de navegación ---
@@ -32,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navLinks.classList.contains('nav-active')) {
                 navLinks.classList.remove('nav-active');
                 burger.classList.remove('toggle');
-                // Restablece la opacidad de los enlaces
+                // Restablece la opacidad de los enlaces para futuras aperturas
                 navLinks.querySelectorAll('li').forEach((link, index) => {
                     link.style.animation = '';
                 });
@@ -49,21 +51,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelector('.nav-links');
     const navItems = document.querySelectorAll('.nav-links li');
 
-    if (burger) {
+    if (burger) { // Asegurarse de que el elemento exista antes de añadir el evento
         burger.addEventListener('click', () => {
-            // Toggle Nav
+            // Toggle Nav (abre/cierra el menú completo)
             navLinks.classList.toggle('nav-active');
 
-            // Animate Links
+            // Animate Links (añade/quita animación a cada enlace)
             navItems.forEach((link, index) => {
                 if (link.style.animation) {
-                    link.style.animation = '';
+                    link.style.animation = ''; // Si ya tiene animación, la resetea
                 } else {
+                    // Aplica una animación con retraso para cada elemento
                     link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
                 }
             });
 
-            // Burger Animation
+            // Burger Animation (anima las líneas de la hamburguesa para formar una 'X')
             burger.classList.toggle('toggle');
         });
     }
@@ -124,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Manejo del formulario de reservas (igual que antes) ---
+    // --- Manejo del formulario de reservas ---
     const reservationForm = document.getElementById('reservation-form');
     const reservationMessage = document.getElementById('reservation-message');
 
