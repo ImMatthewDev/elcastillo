@@ -218,21 +218,17 @@ nav .logo {
     margin-bottom: 20px;
     color: white;
     animation: fadeInDown 1s ease-out; /* Animación de entrada */
-    white-space: nowrap; /* Evita que el texto se rompa durante el typing */
-    overflow: hidden; /* Esencial para el efecto de escritura */
-    border-right: .15em solid white; /* Cursor parpadeante */
     
-    /* MODIFICADO: Usar variables CSS para la animación de typing */
-    /* Estas variables serán establecidas por JavaScript */
-    animation: typing var(--typing-duration, 3s) steps(var(--typing-steps, 40), end) forwards, 
-               blink-caret .75s step-end infinite;
-    animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
+    /* MODIFICADO: Las propiedades white-space y overflow las manejará JS dinámicamente */
+    /* La animación typing y blink-caret se aplicarán directamente en JavaScript para más control */
+    /* Dejamos aquí solo la animación de entrada para el h1 */
 }
 
 /* Keyframes para el efecto de typing y cursor */
+/* El 'width: 0' y 'width: 100%' se referirá al max-width ajustado por JS */
 @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+    from { width: 0; }
+    to { width: var(--final-width); } /* Usaremos una variable para el ancho final */
 }
 
 @keyframes blink-caret {
@@ -655,7 +651,8 @@ footer {
 @media (max-width: 480px) {
     .hero-content h1 {
         font-size: 2rem;
-        white-space: normal; /* Permite que el texto se rompa en varias líneas */
+        /* Permitimos que el texto se rompa en varias líneas en móviles */
+        white-space: normal; 
     }
 
     .hero-content p {
