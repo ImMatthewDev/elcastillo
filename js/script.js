@@ -2,25 +2,49 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Efecto de Typing para el Título Principal ---
     const typingTextElement = document.querySelector('.typing-effect');
     if (typingTextElement) {
-        const textToType = typingTextElement.textContent;
-        typingTextElement.textContent = ''; // Limpia el texto para empezar a escribir
+        const originalText = typingTextElement.textContent; // Guardar el texto original
+        typingTextElement.textContent = ''; // Limpiar el texto para la animación
+        typingTextElement.style.overflow = 'hidden'; // Ocultar el desbordamiento inicial
+        typingTextElement.style.whiteSpace = 'nowrap'; // Mantenerlo en una línea inicialmente para medir
 
-        // Calcular la duración de la animación dinámicamente
-        // Cada carácter toma aproximadamente 0.15 segundos
-        const typingSpeed = 0.15; // Segundos por carácter
-        const animationDuration = textToType.length * typingSpeed;
+        // Medir el ancho del texto completo cuando está en una sola línea
+        // Creamos un elemento temporal invisible para medirlo con precisión
+        const tempSpan = document.createElement('span');
+        tempSpan.style.visibility = 'hidden';
+        tempSpan.style.position = 'absolute';
+        tempSpan.style.whiteSpace = 'nowrap'; // Para que la medición sea precisa
+        tempSpan.style.fontSize = getComputedStyle(typingTextElement).fontSize; // Heredar estilo de fuente
+        tempSpan.style.fontFamily = getComputedStyle(typingTextElement).fontFamily; // Heredar estilo de fuente
+        tempSpan.textContent = originalText;
+        document.body.appendChild(tempSpan);
+        const textWidth = tempSpan.offsetWidth + 5; // Obtener el ancho del texto, añadir un pequeño buffer
+        document.body.removeChild(tempSpan); // Eliminar el elemento temporal
 
-        // Establecer la variable CSS --typing-steps y --typing-duration
-        // para que las animaciones CSS puedan usar estos valores
-        typingTextElement.style.setProperty('--typing-steps', textToType.length);
+        // Establecer la variable CSS --final-width y --typing-duration
+        const typingSpeed = 0.08; // Velocidad de escritura: segundos por carácter (ajusta si es muy lento/rápido)
+        const animationDuration = originalText.length * typingSpeed;
+
+        typingTextElement.style.setProperty('--final-width', `${textWidth}px`);
         typingTextElement.style.setProperty('--typing-duration', `${animationDuration}s`);
 
-        // Necesitamos un pequeño retraso para asegurar que las variables CSS se apliquen
-        // antes de que la animación comience.
+        // Aplicar las animaciones CSS
+        // Se usa 'setTimeout' para asegurar que las variables CSS se apliquen antes de iniciar la animación
         setTimeout(() => {
-            typingTextElement.textContent = textToType; // Pone el texto completo
-            typingTextElement.style.animation = `typing var(--typing-duration) steps(var(--typing-steps), end) forwards, blink-caret .75s step-end infinite`;
-        }, 100); // Pequeño retraso
+            typingTextElement.style.animation = `
+                typing var(--typing-duration) steps(var(--typing-steps, ${originalText.length}), end) forwards,
+                blink-caret .75s step-end infinite
+            `;
+            // Reestablecer el texto. La animación CSS controlará el ancho.
+            typingTextElement.textContent = originalText;
+            
+            // Después de que la animación termine (o justo antes),
+            // permitir que el texto se ajuste si la pantalla es más pequeña
+            setTimeout(() => {
+                typingTextElement.style.whiteSpace = 'normal'; // Permitir salto de línea
+                typingTextElement.style.overflow = 'visible'; // Asegurar que sea visible si hay overflow
+                typingTextElement.style.borderRight = 'none'; // Eliminar el cursor al finalizar
+            }, animationDuration * 1000 + 500); // 500ms después de que la animación debería terminar
+        }, 100); // Retraso inicial para aplicar variables CSS
     }
 
     // --- Smooth Scrolling para los enlaces de navegación ---
